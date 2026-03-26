@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our Essence | ISPHILO FRAGANCE</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+    <style>
+        .about-hero {
+            height: 60vh;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(212, 46, 46, 0.4) 100%),
+                        url('Images/IMG-20260316-WA0033.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pure-white);
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body onload="runSecurityScan()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar" style="background: var(--pure-black); color: white; text-align: center; padding: 8px 0; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; position: fixed; top: 0; width: 100%; z-index: 1001;">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE
+    </div>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/27766834283" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SMART CAPSULE HEADER -->
+    <header id="header"></header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-close" id="closeSearch"><i class="fas fa-times"></i></div>
+        <div class="search-input-container">
+            <input type="text" id="searchInput" placeholder="Search for your signature scent...">
+            <div class="search-results" id="searchResults">
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT HERO -->
+    <section class="about-hero" data-bg="linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(212, 46, 46, 0.4) 100%), url('Images/IMG-20260316-WA0033.jpg')">
+        <div class="container">
+            <p class="hero-subtitle" style="color: var(--gold-light);">Our Legacy</p>
+            <h1 class="hero-title" style="font-size: 60px;">Crafting <span>Timeless</span> Memories</h1>
+        </div>
+    </section>
+
+    <!-- STORY SECTION -->
+    <section class="section blurred-bg-section light-overlay" data-bg="url('Images/IMG-20260316-WA0032.jpg')">
+        <div class="container">
+            <div class="about-preview" style="background: transparent; grid-template-columns: 1fr 1fr; gap: 60px;">
+                <div class="about-image" data-bg="url('Images/IMG-20260316-WA0031.jpg')" style="height: 600px;"></div>
+                <div class="about-content" style="padding: 0;">
+                    <p class="section-subtitle">Since 2018</p>
+                    <h3 style="font-size: 48px;">Our Essence & Story</h3>
+                    <p style="font-size: 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); margin-bottom: 30px;">
+                        "A scent is more than just a fragrance; it's an extension of your personality."
+                    </p>
+                    <p>
+                        Based in the vibrant heart of Durban, <strong>Isphilo Fragrances</strong> is a premier cosmetic brand specializing in a sophisticated range of fragrances for both men and women.
+                    </p>
+                    <p>
+                        Each scent is meticulously crafted from distinctive blends of essential oils and other fine ingredients, resulting in long-lasting fragrances designed to linger for hours on end. Our signature collections are available in elegant 50ml and 30ml bottles, offering a perfect fusion of luxury and longevity.
+                    </p>
+                    <p>
+                        ISIPHILO FRAGRANCES was established on 29 March 2018 in <strong>Berea, Durban (4001)</strong>, with a singular vision: to bring the luxury of premium fragrances to everyone. We believe that every individual deserves to experience the confidence and elegance that comes with a signature scent.
+                    </p>
+                    <p>
+                        Today, while we remain proud of our Berea roots, ISIPHILO FRAGRANCES has expanded its reach to serve customers <strong>worldwide</strong>. Every bottle tells a story of craftsmanship, dedication, and the pursuit of olfactory perfection, delivered from South Africa to your doorstep.
+                    </p>
+                    <div class="about-stats" style="margin-top: 40px;">
+                        <div class="stat-item">
+                            <div class="stat-number">2018</div>
+                            <div class="stat-label">Year Founded</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">KZN</div>
+                            <div class="stat-label">Home Province</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">Global</div>
+                            <div class="stat-label">Shipping</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO BIO SECTION -->
+    <section class="ceo-section">
+        <div class="container">
+            <div class="ceo-grid">
+                <div class="ceo-image-wrapper reveal">
+                    <img src="Images/CEO IMAGE.jpeg" alt="Thabo Nyathi - CEO of Isphilo Fragrance" class="ceo-img-fluid">
+                </div>
+                <div class="ceo-content reveal">
+                    <p class="section-subtitle">Visionary Behind the Scents</p>
+                    <h2>Thabo Nyathi</h2>
+                    <span class="designation">Founder & CEO, Isphilo Fragrance</span>
+                    
+                    <p>
+                        The story of Isphilo Fragrance is one of ambition, cultural heritage, and the relentless pursuit of excellence. Founded by Thabo Nyathi, the brand reflects his personal journey from a small town to the global stage of luxury cosmetics.
+                    </p>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">Early Years</div>
+                            <div class="timeline-text">Born and raised in the quiet town of Estcourt, Thabo's foundation was built at Fordaville Primary and Drakensberg Secondary School.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016 - 2017</div>
+                            <div class="timeline-text">After completing his matric in 2016, Thabo took a pivotal gap year in Johannesburg to refine his business acumen and academic standing.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2018</div>
+                            <div class="timeline-text">Moved to Durban to pursue Marketing at the Durban University of Technology (DUT). This academic environment sparked the commercial fire that would become Isphilo.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">The Birth of Isphilo</div>
+                            <div class="timeline-text">During his first semester at DUT, Thabo began selling unbranded colognes. By the end of 2018, he officially established and named the brand: <strong>Isphilo Fragrance</strong>.</div>
+                        </div>
+                    </div>
+
+                    <div class="ceo-signature" style="margin-top: 50px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px;">
+                        <p style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; color: var(--gold); letter-spacing: 2px;">Thabo Nyathi</p>
+                        <p style="font-size: 14px; opacity: 0.6;">Founder & CEO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES SECTION -->
+    <section class="section blurred-bg-section light-overlay" data-bg="url('Images/IMG-20260316-WA0051.jpg')">
+        <div class="container text-center">
+            <div class="section-header">
+                <p class="section-subtitle">What We Stand For</p>
+                <h2 class="section-title">Our Global Promise</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="testimonial-grid" style="margin-top: 60px;">
+                <div class="testimonial-card" style="padding: 50px 30px; text-align: center;">
+                    <div style="font-size: 40px; color: var(--gold); margin-bottom: 25px;"><i class="fas fa-globe"></i></div>
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-size: 16px; letter-spacing: 2px; margin-bottom: 20px;">Worldwide Delivery</h4>
+                    <p style="font-style: normal; font-size: 15px; opacity: 0.8;">We've mastered the art of international shipping, ensuring our Durban-crafted fragrances reach you safely, no matter where you are in the world.</p>
+                </div>
+                
+                <div class="testimonial-card" style="padding: 50px 30px; text-align: center;">
+                    <div style="font-size: 40px; color: var(--gold); margin-bottom: 25px;"><i class="fas fa-map-pin"></i></div>
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-size: 16px; letter-spacing: 2px; margin-bottom: 20px;">Local Heritage</h4>
+                    <p style="font-style: normal; font-size: 15px; opacity: 0.8;">Every fragrance is a tribute to our home in Berea, Durban, combining local inspiration with the finest global ingredients.</p>
+                </div>
+                
+                <div class="testimonial-card" style="padding: 50px 30px; text-align: center;">
+                    <div style="font-size: 40px; color: var(--gold); margin-bottom: 25px;"><i class="fas fa-shield-check"></i></div>
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-size: 16px; letter-spacing: 2px; margin-bottom: 20px;">Quality Assurance</h4>
+                    <p style="font-style: normal; font-size: 15px; opacity: 0.8;">Our commitment to excellence means every product undergoes rigorous testing to meet international luxury perfume standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

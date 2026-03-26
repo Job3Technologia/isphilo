@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Fragrances | ISPHILO FRAGRANCE</title>
+    <meta name="description" content="Explore our curated collection of luxury South African fragrances. Shop ladies' perfumes, men's colognes, and unisex scents. Long-lasting quality, elegant packaging.">
+    <meta name="keywords" content="luxury perfumes, South African fragrance, long-lasting scents, men's cologne, ladies perfume, unisex fragrance, Isphilo">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://isphilofragrance.com/shop.html">
+    <meta property="og:title" content="Shop Luxury Fragrances | ISPHILO FRAGRANCE">
+    <meta property="og:description" content="Exclusive collection of premium South African scents. Experience the elegance of long-lasting luxury.">
+    <meta property="og:image" content="Images/LOGO.jpg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+</head>
+<body onload="runSecurityScan(); renderShop()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar" style="background: var(--pure-black); color: white; text-align: center; padding: 8px 0; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; position: fixed; top: 0; width: 100%; z-index: 1001;">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE
+    </div>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/27766834283" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SMART CAPSULE HEADER -->
+    <header id="header"></header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-close" id="closeSearch"><i class="fas fa-times"></i></div>
+        <div class="search-input-container">
+            <input type="text" id="searchInput" placeholder="Search for your signature scent...">
+            <div class="search-results" id="searchResults">
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOP HEADER -->
+    <section class="section shop-hero-section" style="padding-top: clamp(120px, 15vh, 180px); padding-bottom: clamp(40px, 8vh, 80px); color: white; position: relative; overflow: hidden;">
+        <div class="hero-slideshow">
+            <div class="slide active" data-bg="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Images/IMG-20260316-WA0031.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 1"></div>
+            <div class="slide" data-bg="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Images/IMG-20260316-WA0040.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 2"></div>
+            <div class="slide" data-bg="linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Images/IMG-20260316-WA0051.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 3"></div>
+        </div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="section-header" style="text-align: left;">
+                <p class="section-subtitle" style="color: var(--gold-light); opacity: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Exquisite Collection</p>
+                <h2 class="section-title" style="color: white; font-size: clamp(2.5rem, 6vw, 4rem); text-shadow: 0 4px 8px rgba(0,0,0,0.5);">Shop All Fragrances</h2>
+                <div class="section-divider" style="margin: 0; background: var(--gold); height: 3px; width: 80px;"></div>
+            </div>
+            
+            <div class="shop-filters" style="margin-top: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); padding-bottom: 30px;">
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">All Fragrances</button>
+                    <button class="category-tab" data-category="For Her">For Her (30ml)</button>
+                    <button class="category-tab" data-category="For Him">For Him (50ml)</button>
+                    <button class="category-tab" data-category="Limited Edition">Limited Edition</button>
+                    <button class="category-tab" data-category="Exclusive">Exclusive</button>
+                </div>
+                <div class="results-count text-center">
+                    <p id="results-count-text" style="font-family: 'Montserrat', sans-serif; font-size: 11px; color: var(--gold-light); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Showing 0 products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="product-grid" id="shop-grid">
+                <!-- Products injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Set up category tab event listeners
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderShop(this.dataset.category);
+            });
+        });
+
+        async function renderShop(selectedCategory = 'all') {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+            const grid = document.getElementById('shop-grid');
+            
+            // Use selectedCategory from argument, or 'all' if not provided
+            let products = await ISPHILO_DB.getProducts();
+
+            // Client-side filtering for category and search
+            if (selectedCategory !== 'all') {
+                products = products.filter(p => p.category === selectedCategory);
+            }
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                products = products.filter(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    p.category.toLowerCase().includes(query)
+                );
+                document.querySelector('.section-title').textContent = `Results for "${searchQuery}"`;
+                document.querySelector('.section-subtitle').textContent = `Search Results`;
+            }
+
+            document.getElementById('results-count-text').textContent = `Showing ${products.length} products`;
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 100px 20px;">
+                        <i class="fas fa-search" style="font-size: 60px; color: var(--gray-light); margin-bottom: 30px;"></i>
+                        <h3 style="margin-bottom: 20px;">No fragrances match your criteria</h3>
+                        <p style="opacity: 0.6; margin-bottom: 30px;">Try a different search term or category.</p>
+                        <a href="shop.html" class="btn">Clear All Filters</a>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = products.map(p => `
+                <div class="product-card ${p.is_sold_out ? 'sold-out' : ''} reveal" onclick="window.location.href='product-details.html?id=${p.id}'">
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.name}">
+                        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+                        ${p.is_sold_out ? `<div class="product-badge sold-out-badge">Sold Out</div>` : ''}
+                        <button class="wishlist-btn" onclick="event.stopPropagation(); toggleWishlist(${p.id}, this)" style="position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gray-light); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 5; transition: all 0.3s ease;">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <div class="product-overlay">
+                            <div class="product-actions">
+                                <button onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-shopping-bag"></i></button>
+                                <button onclick="event.stopPropagation(); window.location.href='product-details.html?id=${p.id}'"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">${p.category}</p>
+                        <h5 class="product-name">${p.name}</h5>
+                        <p class="product-price">
+                            ${p.sale_price ? `<span class="original">R ${p.price.toFixed(2)}</span><span class="sale">R ${p.sale_price.toFixed(2)}</span>` : `R ${p.price.toFixed(2)}`}
+                        </p>
+                        <button class="btn-add-to-cart ${p.is_sold_out ? 'sold-out' : ''}" 
+                                onclick="event.stopPropagation(); ${p.is_sold_out ? '' : `addToCart(${p.id})`}">
+                            ${p.is_sold_out ? 'Out of Stock' : 'Add to cart'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Re-run reveal and wishlist check
+            if (window.reveal) setTimeout(window.reveal, 100);
+            if (typeof updateWishlistIcons === 'function') updateWishlistIcons();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | ISPHILO FRAGRANCE</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+    <style>
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--off-white);
+            padding: 40px 20px;
+        }
+        .auth-card {
+            background: var(--pure-white);
+            width: 100%;
+            max-width: 450px;
+            padding: 60px 40px;
+            border: 1px solid var(--gray-light);
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+        .auth-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .auth-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            opacity: 0.6;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .otp-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .otp-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 1px solid var(--gray-light);
+            background: #FAFAFA;
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: var(--pure-white);
+            box-shadow: 0 0 0 3px rgba(212, 46, 46, 0.1);
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-auth:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .resend-text {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
+        }
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+            margin-left: 5px;
+        }
+        .resend-btn:disabled {
+            color: #999;
+            text-decoration: none;
+            cursor: default;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: left;
+            display: none;
+        }
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body style="background: var(--off-white);">
+    <!-- SMART CAPSULE HEADER -->
+    <header id="header"></header>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <a href="index.html" style="text-decoration: none;">
+                <img src="Images/LOGO.jpg" alt="ISPHILO Logo" style="height: 60px; width: 60px; border: 2px solid var(--pure-black); padding: 2px;">
+                <div class="logo-text">ISPHILO <span>FRAGRANCE</span></div>
+            </a>
+
+            <h1 class="auth-title">Verify Email</h1>
+            <p class="auth-subtitle">We've sent a 6-digit code to <br><strong id="user-email">your email</strong></p>
+
+            <div id="alert-box" class="alert"></div>
+
+            <form id="otp-form">
+                <div class="otp-container">
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                    <input type="text" class="otp-input" maxlength="1" pattern="\d*" required>
+                </div>
+
+                <button type="submit" id="verify-btn" class="btn-auth">Verify & Login</button>
+            </form>
+
+            <div class="resend-text">
+                Didn't receive code? 
+                <button id="resend-btn" class="resend-btn" disabled>Resend in <span id="timer">30</span>s</button>
+            </div>
+
+            <a href="login.html" style="display: block; margin-top: 30px; font-size: 12px; color: #999; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;">
+                <i class="fas fa-arrow-left" style="margin-right: 5px;"></i> Back to Login
+            </a>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const email = sessionStorage.getItem('isphilo_verify_email');
+            if (!email) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('user-email').textContent = email;
+
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otpForm = document.getElementById('otp-form');
+            const alertBox = document.getElementById('alert-box');
+            const resendBtn = document.getElementById('resend-btn');
+            const timerEl = document.getElementById('timer');
+            const verifyBtn = document.getElementById('verify-btn');
+
+            // OTP Input focus management
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length > 0 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+
+                // Allow only numbers
+                input.addEventListener('keypress', (e) => {
+                    if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            // Resend Timer
+            let timeLeft = 30;
+            const startTimer = () => {
+                resendBtn.disabled = true;
+                timeLeft = 30;
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    timerEl.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        resendBtn.disabled = false;
+                        resendBtn.innerHTML = 'Resend Code';
+                    } else {
+                        resendBtn.innerHTML = `Resend in <span id="timer">${timeLeft}</span>s`;
+                    }
+                }, 1000);
+            };
+            startTimer();
+
+            // Handle Resend
+            resendBtn.addEventListener('click', async () => {
+                try {
+                    const res = await ISPHILO_DB.resendOTP(email);
+                    if (res.success) {
+                        showAlert(res.message, 'success');
+                        startTimer();
+                    } else {
+                        showAlert(res.message, 'error');
+                    }
+                } catch (e) {
+                    showAlert('Failed to resend code. Please try again.', 'error');
+                }
+            });
+
+            // Handle Submit
+            otpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const otp = Array.from(otpInputs).map(i => i.value).join('');
+                if (otp.length !== 6) return;
+
+                verifyBtn.disabled = true;
+                verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+                try {
+                    const res = await ISPHILO_DB.verifyOTP(email, otp);
+                    if (res.success) {
+                        showAlert('Verification successful! Redirecting...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'customer-dashboard.html';
+                        }, 1500);
+                    } else {
+                        showAlert(res.message, 'error');
+                        verifyBtn.disabled = false;
+                        verifyBtn.textContent = 'Verify & Login';
+                    }
+                } catch (e) {
+                    showAlert('Server error. Please try again later.', 'error');
+                    verifyBtn.disabled = false;
+                    verifyBtn.textContent = 'Verify & Login';
+                }
+            });
+
+            function showAlert(msg, type) {
+                alertBox.textContent = msg;
+                alertBox.className = `alert alert-${type}`;
+                alertBox.style.display = 'block';
+                if (type === 'error') {
+                    // Optional: shake effect
+                }
+            }
+        });
+    </script>
+</body>
+</html>

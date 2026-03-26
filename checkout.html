@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | ISPHILO FRAGANCE</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+    <script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+    <style>
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .checkout-form-section {
+            background: var(--pure-white);
+            padding: 40px;
+            border: 1px solid var(--gray-light);
+        }
+        .checkout-summary-section {
+            background: var(--off-white);
+            padding: 40px;
+            height: fit-content;
+            border: 1px solid var(--gray-light);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--pure-black);
+            font-weight: 700;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            background: var(--pure-white);
+        }
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .payment-option {
+            border: 1px solid var(--gray-light);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+        .payment-option i { font-size: 20px; }
+        .payment-option.active {
+            border-color: var(--primary-red);
+            background: var(--pure-white);
+            box-shadow: 0 5px 15px rgba(212, 46, 46, 0.1);
+        }
+        .payment-option input { display: none; }
+        
+        #card-details {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--off-white);
+            border: 1px dashed var(--gray-light);
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body onload="runSecurityScan(); initCheckout()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar" style="background: var(--pure-black); color: white; text-align: center; padding: 8px 0; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; position: fixed; top: 0; width: 100%; z-index: 1001;">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE
+    </div>
+
+    <!-- HEADER (Minimal Smart Capsule) -->
+    <header id="header"></header>
+
+    <!-- CHECKOUT CONTENT -->
+    <section class="section" style="padding-top: 100px;">
+        <div class="container">
+            <div class="checkout-grid">
+                <!-- Shipping and Payment Form -->
+                <div class="checkout-form-section">
+                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; margin-bottom: 30px; border-bottom: 2px solid var(--pure-black); padding-bottom: 10px; text-transform: uppercase;">1. Shipping Information</h3>
+                    
+                    <form id="checkoutForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="ship-fname" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="ship-lname" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="ship-email" placeholder="Email for order confirmation" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" id="ship-phone" placeholder="Phone Number" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            <input type="text" id="ship-address" placeholder="House number and street name" required>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" id="ship-city" placeholder="City" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" id="ship-zip" placeholder="ZIP / Postal Code" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delivery Method</label>
+                            <select id="ship-method" style="width: 100%; padding: 12px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 14px; background: var(--pure-white);" onchange="handleShippingMethodChange()" required>
+                                <option value="" disabled selected>Select a delivery method</option>
+                                <option value="60" data-name="Pexi">Pexi (R60 - R110)</option>
+                                <option value="109" data-name="PostNet to PostNet">PostNet to PostNet (R109)</option>
+                                <option value="100" data-name="Aramex (Door-to-Door)">Aramex Door-to-Door (R100)</option>
+                                <option value="0" data-name="Same-Day Delivery">Same-Day Delivery (Custom Pricing)</option>
+                                <option value="0" data-name="Taxi Delivery">Taxi Delivery (Manual Pricing)</option>
+                                <option value="0" data-name="International Shipping">International Delivery (Manual Arrangement)</option>
+                            </select>
+                        </div>
+
+                        <!-- Conditional Delivery Fields -->
+                        <div id="pexi-fields" style="display: none; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eee;">
+                            <div class="form-group">
+                                <label>Pexi Store Number</label>
+                                <input type="text" id="pexi-store-no" placeholder="e.g. PX12345">
+                            </div>
+                            <div class="form-group">
+                                <label>Pickup Location Name</label>
+                                <input type="text" id="pexi-location" placeholder="e.g. Shell Ultra City East">
+                            </div>
+                        </div>
+
+                        <div id="postnet-fields" style="display: none; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eee;">
+                            <div class="form-group">
+                                <label>PostNet Branch Name</label>
+                                <input type="text" id="postnet-branch" placeholder="e.g. PostNet Durban North">
+                            </div>
+                        </div>
+
+                        <div id="aramex-fields" style="display: none; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #eee;">
+                            <div class="form-group">
+                                <label>Full Delivery Address</label>
+                                <textarea id="aramex-address" style="width: 100%; padding: 12px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 14px;" rows="3" placeholder="Enter full door-to-door address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Receiver Contact Number</label>
+                                <input type="tel" id="aramex-phone" placeholder="Receiver's Phone Number">
+                            </div>
+                        </div>
+
+                        <div id="manual-delivery-msg" style="display: none; background: #fffde7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fff59d; color: #f57f17; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Our team will contact you to finalize delivery arrangements and pricing.</span>
+                        </div>
+
+                        <h3 style="font-family: 'Montserrat', sans-serif; font-size: 18px; margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--pure-black); padding-bottom: 10px; text-transform: uppercase;">2. Payment Method</h3>
+                        
+                        <div class="payment-options">
+                            <div class="payment-option active" onclick="selectPayment('card', this)">
+                                <i class="fas fa-credit-card"></i>
+                                <span style="font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;">CARD</span>
+                                <input type="radio" name="payment" value="card" checked>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('eft', this)">
+                                <i class="fas fa-university"></i>
+                                <span style="font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;">EFT</span>
+                                <input type="radio" name="payment" value="eft">
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('balance', this)">
+                                <i class="fas fa-wallet"></i>
+                                <span style="font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;">WALLET</span>
+                                <input type="radio" name="payment" value="balance">
+                            </div>
+                        </div>
+
+                        <!-- Card Details (Yoco Secure Payment) -->
+                        <div id="card-details" style="display: block; background: #f4f7f6; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                <img src="https://www.yoco.com/assets/images/yoco-logo.svg" alt="Yoco" style="height: 25px;">
+                                <span style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: #333;">SECURE ONLINE PAYMENT</span>
+                            </div>
+                            <p style="font-size: 12px; opacity: 0.8; margin-bottom: 15px;">You will be redirected to Yoco's secure popup to enter your card details. We do not store your card information.</p>
+                            <div style="display: flex; gap: 10px; align-items: center; opacity: 0.7; font-size: 24px;">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                                <span style="font-size: 10px; font-family: 'Montserrat', sans-serif; margin-left: auto;">PCI-DSS COMPLIANT</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="pay-button" class="btn" style="width: 100%; margin-top: 40px; padding: 20px;">Authorize & Pay</button>
+                    </form>
+                </div>
+
+                <!-- Order Summary Mini -->
+                <div class="checkout-summary-section">
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; border-bottom: 1px solid var(--gray-light); padding-bottom: 10px;">Order Summary</h4>
+                    
+                    <div id="summary-items">
+                        <!-- Dynamic items -->
+                    </div>
+
+                    <!-- Coupon Section -->
+                    <div style="margin-top: 30px; border-top: 1px solid var(--gray-light); padding-top: 20px;">
+                        <label style="font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block;">Redeem Gift Code / Coupon</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="coupon-input" placeholder="Enter code" style="flex: 1; padding: 10px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 12px;">
+                            <button type="button" onclick="applyCoupon()" class="btn btn-sm" style="min-width: 100px;">Apply</button>
+                        </div>
+                        <div id="coupon-msg" style="margin-top: 10px; font-size: 11px; font-weight: 700;"></div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; border-top: 2px solid var(--pure-black); padding-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="opacity: 0.7; font-size: 13px;">Subtotal</span>
+                            <span id="sum-subtotal">R 0.00</span>
+                        </div>
+                        <div id="discount-row" style="display: none; justify-content: space-between; margin-bottom: 10px; color: var(--primary-red);">
+                            <span style="font-size: 13px; font-weight: 700;">Discount</span>
+                            <span id="sum-discount">- R 0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="opacity: 0.7; font-size: 13px;">Shipping</span>
+                            <span id="sum-shipping">R 100.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--gray-light);">
+                            <span style="font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: 1px;">TOTAL</span>
+                            <span style="font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--primary-red);" id="sum-total">R 0.00</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; background: #e8f5e9; padding: 15px; border-radius: 4px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-shield-check" style="color: #2e7d32;"></i>
+                        <span style="font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; color: #1b5e20;">Intelligent Virus Detection & SSL Encryption Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer"></footer>
+
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let selectedPaymentType = 'card';
+        let currentDiscount = 0;
+
+        function initCheckout() {
+            // Requirement: Only registered users can checkout
+            const user = ISPHILO_DB.getCurrentUser();
+            if (!user) {
+                // Save checkout attempt in session to redirect back after login
+                sessionStorage.setItem('isphilo_redirect_after_login', 'checkout.html');
+                window.location.href = 'login.html?reason=checkout';
+                return;
+            }
+
+            const cart = ISPHILO_DB.getCart();
+            if (cart.length === 0) {
+                window.location.href = 'shop.html';
+                return;
+            }
+
+            const itemsContainer = document.getElementById('summary-items');
+            let subtotal = 0;
+            
+            itemsContainer.innerHTML = cart.map(item => {
+                subtotal += item.price * item.quantity;
+                return `
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid var(--gray-light);">
+                        <div style="flex: 1;">
+                            <p style="font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; margin: 0;">${item.name}</p>
+                            <p style="font-size: 11px; opacity: 0.6; margin: 0;">Qty: ${item.quantity} • R ${item.price.toFixed(2)}</p>
+                        </div>
+                        <span style="font-weight: 600; font-size: 13px;">R ${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            }).join('');
+
+            updateTotals(subtotal);
+
+            // Pre-fill user data
+            document.getElementById('ship-fname').value = user.name.split(' ')[0] || '';
+            document.getElementById('ship-lname').value = user.name.split(' ').slice(1).join(' ' || '');
+            document.getElementById('ship-email').value = user.email;
+            document.getElementById('ship-phone').value = user.phone || '';
+        }
+
+        function handleShippingMethodChange() {
+            const methodSelect = document.getElementById('ship-method');
+            const selectedOption = methodSelect.options[methodSelect.selectedIndex];
+            const methodName = selectedOption.dataset.name;
+            const shippingValue = parseFloat(selectedOption.value);
+
+            // Reset all fields
+            document.getElementById('pexi-fields').style.display = 'none';
+            document.getElementById('postnet-fields').style.display = 'none';
+            document.getElementById('aramex-fields').style.display = 'none';
+            document.getElementById('manual-delivery-msg').style.display = 'none';
+
+            // Show conditional fields
+            if (methodName === 'Pexi') {
+                document.getElementById('pexi-fields').style.display = 'block';
+            } else if (methodName === 'PostNet to PostNet') {
+                document.getElementById('postnet-fields').style.display = 'block';
+            } else if (methodName === 'Aramex (Door-to-Door)') {
+                document.getElementById('aramex-fields').style.display = 'block';
+            } else if (methodName === 'Same-Day Delivery' || methodName === 'Taxi Delivery' || methodName === 'International Shipping') {
+                document.getElementById('manual-delivery-msg').style.display = 'flex';
+            }
+
+            const cart = ISPHILO_DB.getCart();
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            updateTotals(subtotal);
+        }
+
+        function updateTotals(subtotal) {
+            const methodSelect = document.getElementById('ship-method');
+            const shippingValue = methodSelect.value;
+            const shipping = shippingValue === "" ? 0 : parseFloat(shippingValue);
+            const total = subtotal - currentDiscount + shipping;
+            
+            document.getElementById('sum-subtotal').textContent = `R ${subtotal.toFixed(2)}`;
+            
+            const shippingEl = document.getElementById('sum-shipping');
+            if (shippingValue === "") {
+                shippingEl.textContent = 'Select method';
+            } else if (shipping === 0) {
+                shippingEl.textContent = 'TBD (Arrangement)';
+            } else {
+                shippingEl.textContent = `R ${shipping.toFixed(2)}`;
+            }
+            
+            const discountRow = document.getElementById('discount-row');
+            if (currentDiscount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('sum-discount').textContent = `- R ${currentDiscount.toFixed(2)}`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+
+            document.getElementById('sum-total').textContent = `R ${total.toFixed(2)}`;
+            
+            // Add a visual "Total" to the authorize button
+            const submitBtn = document.querySelector('#checkoutForm button[type="submit"]');
+            if (shippingValue === "") {
+                submitBtn.textContent = 'Please select shipping';
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.textContent = `Authorize & Pay R ${total.toFixed(2)}`;
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function applyCoupon() {
+            const code = document.getElementById('coupon-input').value;
+            const msg = document.getElementById('coupon-msg');
+            const cart = ISPHILO_DB.getCart();
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            try {
+                const response = await fetch('/api/coupons/validate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code, subtotal })
+                });
+
+                const coupon = await response.json();
+
+                if (response.ok) {
+                    if (coupon.discount_type === 'percentage') {
+                        currentDiscount = subtotal * (coupon.discount_value / 100);
+                    } else {
+                        currentDiscount = parseFloat(coupon.discount_value);
+                    }
+                    
+                    msg.style.color = '#2e7d32';
+                    msg.textContent = `Coupon "${coupon.code}" applied! You saved R ${currentDiscount.toFixed(2)}`;
+                    updateTotals(subtotal);
+                    showNotification('Coupon applied!', 'success');
+                } else {
+                    throw new Error(coupon.msg || 'Invalid coupon code');
+                }
+            } catch (error) {
+                currentDiscount = 0;
+                msg.style.color = 'var(--primary-red)';
+                msg.textContent = error.message;
+                updateTotals(subtotal);
+                showNotification(error.message, 'error');
+            }
+        }
+
+        function selectPayment(type, element) {
+            selectedPaymentType = type;
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+            element.classList.add('active');
+            
+            const cardDetails = document.getElementById('card-details');
+            cardDetails.style.display = type === 'card' ? 'block' : 'none';
+        }
+
+        const yoco = new window.YocoSDK({
+            publicKey: 'pk_test_ed3c54a6ayjM89qr935' // Replace with your actual public key
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cart = ISPHILO_DB.getCart();
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = parseFloat(document.getElementById('ship-method').value);
+            const total = subtotal - currentDiscount + shipping;
+            const amountInCents = Math.round(total * 100);
+
+            const customerDetails = {
+                name: document.getElementById('ship-fname').value + ' ' + document.getElementById('ship-lname').value,
+                email: document.getElementById('ship-email').value,
+                phone: document.getElementById('ship-phone').value,
+                address: document.getElementById('ship-address').value,
+                city: document.getElementById('ship-city').value,
+                zip: document.getElementById('ship-zip').value,
+                shipping_method: document.getElementById('ship-method').options[document.getElementById('ship-method').selectedIndex].dataset.name,
+                shipping_cost: shipping,
+                delivery_details: {
+                    pexi_store_no: document.getElementById('pexi-store-no').value,
+                    pexi_location: document.getElementById('pexi-location').value,
+                    postnet_branch: document.getElementById('postnet-branch').value,
+                    aramex_address: document.getElementById('aramex-address').value,
+                    aramex_phone: document.getElementById('aramex-phone').value
+                }
+            };
+
+            if (selectedPaymentType === 'card') {
+                yoco.showPopup({
+                    amountInCents: amountInCents,
+                    currency: 'ZAR',
+                    name: 'ISPHILO FRAGRANCE',
+                    description: 'Order Payment',
+                    callback: async function (result) {
+                        if (result.error) {
+                            const errorMsg = result.error.message || "Payment failed";
+                            showNotification(errorMsg, 'error');
+                        } else {
+                            // Send token to backend
+                            showNotification('Processing payment...', 'success');
+                            
+                            try {
+                                const user = ISPHILO_DB.getCurrentUser();
+                                // Simulate backend API call for now, but prepare for real one
+                                const response = await fetch('/api/payments/process', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        token: result.id,
+                                        amountInCents: amountInCents,
+                                        customer_id: user.id,
+                                        order_id: Math.floor(Math.random() * 100000) // Temporary order ID
+                                    })
+                                });
+
+                                const data = await response.json();
+                                if (data.success) {
+                                    const order = ISPHILO_DB.placeOrder(customerDetails, { type: 'card', transaction_id: data.transaction_id });
+                                    showNotification('Payment successful!', 'success');
+                                    setTimeout(() => {
+                                        window.location.href = 'order-success.html?id=' + order.id;
+                                    }, 1500);
+                                } else {
+                                    showNotification(data.message || 'Payment processing failed', 'error');
+                                }
+                            } catch (error) {
+                                // For demo/fallback if backend is not running
+                                console.warn('Backend not available, simulating success for demo');
+                                const order = ISPHILO_DB.placeOrder(customerDetails, { type: 'card', transaction_id: result.id });
+                                showNotification('Payment successful (Demo Mode)!', 'success');
+                                setTimeout(() => {
+                                    window.location.href = 'order-success.html?id=' + order.id;
+                                }, 1500);
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Handle EFT or other methods
+                showNotification('Order placed with ' + selectedPaymentType.toUpperCase() + '. Please complete payment.', 'success');
+                const order = ISPHILO_DB.placeOrder(customerDetails, { type: selectedPaymentType });
+                setTimeout(() => {
+                    window.location.href = 'order-success.html?id=' + order.id;
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

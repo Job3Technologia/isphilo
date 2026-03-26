@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Stories | ISPHILO FRAGRANCE</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+</head>
+<body onload="runSecurityScan()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar" style="background: var(--pure-black); color: white; text-align: center; padding: 8px 0; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; position: fixed; top: 0; width: 100%; z-index: 1001;">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE
+    </div>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/27766834283" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SMART CAPSULE HEADER -->
+    <header id="header"></header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-close" id="closeSearch"><i class="fas fa-times"></i></div>
+        <div class="search-input-container">
+            <input type="text" id="searchInput" placeholder="Search for your signature scent...">
+            <div class="search-results" id="searchResults">
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- REVIEWS HEADER -->
+    <section class="section" style="padding-top: 150px; padding-bottom: 40px; background: var(--white);">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Testimonials</p>
+                <h2 class="section-title">Customer Stories</h2>
+                <div class="section-divider" style="margin: 0;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS CONTENT -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="testimonial-grid">
+                <!-- Review 1 -->
+                <div class="testimonial-card" style="border: 1px solid var(--gray-light);">
+                    <div class="testimonial-rating" style="color: var(--primary-red);">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Absolutely stunning fragrances. Midnight Rose is my new signature scent. The quality is exceptional and the scent lingers all day long!"
+                    </p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 11px;">Sarah M. <span style="color: var(--primary-red);">Verified Purchase</span></p>
+                </div>
+                
+                <!-- Review 2 -->
+                <div class="testimonial-card" style="border: 1px solid var(--gray-light);">
+                    <div class="testimonial-rating" style="color: var(--primary-red);">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "I've tried many luxury brands, but ISIPHILO stands out for its longevity and unique scent profiles. Oceanic Blue is a masterpiece."
+                    </p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 11px;">James L. <span style="color: var(--primary-red);">Verified Purchase</span></p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="testimonial-card" style="border: 1px solid var(--gray-light);">
+                    <div class="testimonial-rating" style="color: var(--primary-red);">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "The presentation and customer service are as premium as the scents themselves. A truly luxury experience from start to finish."
+                    </p>
+                    <p class="testimonial-author" style="font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 11px;">Emily R. <span style="color: var(--primary-red);">Verified Purchase</span></p>
+                </div>
+            </div>
+
+            <!-- REVIEW FORM -->
+            <div style="margin-top: 100px; max-width: 900px; margin-left: auto; margin-right: auto; background: var(--pure-white); padding: 60px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 30px 60px rgba(0,0,0,0.05);">
+                <div class="section-header text-center" style="margin-bottom: 50px;">
+                    <p class="section-subtitle">Your Experience</p>
+                    <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 28px; text-transform: uppercase; letter-spacing: 2px;">Share Your Story</h3>
+                    <div class="section-divider"></div>
+                </div>
+                
+                <form id="reviewForm">
+                    <!-- SECTION 1: BASIC INFO -->
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;">1. Basic Customer Info</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Full Name / Display Name</label>
+                                <input type="text" name="name" placeholder="Enter your name" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Location (City, Country)</label>
+                                <input type="text" name="location" placeholder="e.g. Durban, South Africa" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Product Purchased</label>
+                                <select name="product" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;" required>
+                                    <option value="">Select a fragrance</option>
+                                    <option>Midnight Rose</option>
+                                    <option>Oceanic Blue</option>
+                                    <option>Summer Breeze</option>
+                                    <option>Midnight Leather</option>
+                                    <option>Isphilo Her</option>
+                                    <option>Isphilo Soft</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Date of Purchase</label>
+                                <input type="date" name="purchase_date" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: RATING & SATISFACTION -->
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;">2. Rating & Satisfaction</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Overall Experience</label>
+                                <select name="rating" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                                    <option value="5">5 Stars - Excellent</option>
+                                    <option value="4">4 Stars - Very Good</option>
+                                    <option value="3">3 Stars - Good</option>
+                                    <option value="2">2 Stars - Fair</option>
+                                    <option value="1">1 Star - Poor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Likelihood to Recommend (1-10)</label>
+                                <input type="number" name="recommend" min="1" max="10" value="10" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Delivery Satisfaction</label>
+                                <select name="delivery_sat" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                                    <option>Extremely Satisfied</option>
+                                    <option>Satisfied</option>
+                                    <option>Neutral</option>
+                                    <option>Unsatisfied</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Product Quality Satisfaction</label>
+                                <select name="quality_sat" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                                    <option>Extremely Satisfied</option>
+                                    <option>Satisfied</option>
+                                    <option>Neutral</option>
+                                    <option>Unsatisfied</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: PRODUCT SPECIFIC -->
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;">3. Product Feedback</h4>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">What do you like most about the product?</label>
+                            <textarea name="likes" rows="2" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;"></textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Scent Longevity / Performance</label>
+                            <input type="text" name="longevity" placeholder="e.g. Lasts 8+ hours, stays on clothes for days" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Did it meet your expectations?</label>
+                            <div style="display: flex; gap: 20px; align-items: center; font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                                <label><input type="radio" name="expectations" value="yes" checked> Yes</label>
+                                <label><input type="radio" name="expectations" value="no"> No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: MEDIA & SOCIAL PROOF -->
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;">4. Media & Social Proof</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Share a photo of your product</label>
+                                <input type="file" accept="image/*" style="width: 100%; font-family: 'Montserrat', sans-serif; font-size: 12px;">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Public Consent</label>
+                                <label style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; line-height: 1.4;">
+                                    <input type="checkbox" name="consent" checked>
+                                    Can we share your review publicly on our website/social media?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 5: OPEN FEEDBACK -->
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;">5. Final Thoughts</h4>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">Your Detailed Review</label>
+                            <textarea name="review" rows="4" placeholder="Tell us about your overall experience with ISPHILO..." style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; color: var(--primary-red); font-weight: 700;">How did you hear about us?</label>
+                            <input type="text" name="source" placeholder="e.g. Instagram, Facebook, Friend" style="width: 100%; padding: 15px; border: 1px solid var(--gray-light); font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; padding: 20px; font-size: 14px;">Submit Luxury Story</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 50) {
+                $('#header').addClass('scrolled');
+            } else {
+                $('#header').removeClass('scrolled');
+            }
+        });
+
+        $('.mobile-menu-toggle').click(function() {
+            $('.nav-menu').toggleClass('active');
+            $(this).find('i').toggleClass('fa-bars fa-times');
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('Thank you! Your story has been submitted for verification.', 'success');
+            this.reset();
+        });
+
+        // Search Functionality
+        const products = [
+            { name: 'Midnight Rose', price: 495, category: 'Ladies Fragrances', image: 'Images/IMG-20260316-WA0035.jpg' },
+            { name: 'Oceanic Blue', price: 600, category: "Men's Colognes", image: 'Images/IMG-20260316-WA0036.jpg' },
+            { name: 'Summer Breeze', price: 450, category: 'Ladies Fragrances', image: 'Images/IMG-20260316-WA0037.jpg' },
+            { name: 'Midnight Leather', price: 650, category: "Men's Colognes", image: 'Images/IMG-20260316-WA0038.jpg' }
+        ];
+
+        $('#openSearch').click(function() {
+            $('#searchOverlay').fadeIn();
+            $('#searchInput').focus();
+            $('body').css('overflow', 'hidden');
+        });
+
+        $('#closeSearch').click(function() {
+            $('#searchOverlay').fadeOut();
+            $('body').css('overflow', 'auto');
+        });
+
+        $('#searchInput').on('input', function() {
+            const query = $(this).val().toLowerCase();
+            const results = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+            
+            let html = '';
+            results.forEach(p => {
+                html += `
+                    <div class="product-card" onclick="window.location.href='product-details.html'">
+                        <div class="product-image" style="height: 200px;">
+                            <img src="${p.image}" alt="${p.name}">
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">${p.category}</p>
+                            <h5 class="product-name">${p.name}</h5>
+                            <p class="product-price">R ${p.price}.00</p>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#searchResults').html(html);
+        });
+    </script>
+</body>
+</html>

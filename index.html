@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISPHILO FRAGRANCE | Luxury South African Perfumes</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="ISPHILO FRAGRANCE - Premium South African fragrance brand. Shop long-lasting luxury perfumes, exclusive collections, and world-class scents delivered worldwide.">
+    <meta name="keywords" content="luxury perfumes, south african fragrances, long-lasting perfumes, isphilo fragrance, niche perfumes, durban fragrance boutique">
+    <meta name="author" content="ISPHILO FRAGRANCE">
+    <meta property="og:title" content="ISPHILO FRAGRANCE | Luxury South African Perfumes">
+    <meta property="og:description" content="Experience the luxury of Isphilo Fragrance. Crafted with passion in KZN and delivered to your doorstep.">
+    <meta property="og:image" content="Images/LOGO.jpg">
+    <meta property="og:url" content="https://isphilo.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="Images/LOGO.jpg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+</head>
+<body onload="runSecurityScan()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar" style="background: var(--pure-black); color: white; text-align: center; padding: 8px 0; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; position: fixed; top: 0; width: 100%; z-index: 1001;">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> DELIVERIES AVAILABLE ALL OVER SOUTH AFRICA & WORLDWIDE
+    </div>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/27766834283" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SMART CAPSULE HEADER -->
+    <header id="header"></header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-close" id="closeSearch"><i class="fas fa-times"></i></div>
+        <div class="search-input-container">
+            <input type="text" id="searchInput" placeholder="Search for your signature scent...">
+            <div class="search-results" id="searchResults">
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-slideshow">
+            <div class="slide active" data-bg="linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Images/IMG-20260316-WA0032.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 1"></div>
+            <div class="slide" data-bg="linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Images/IMG-20260316-WA0035.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 2"></div>
+            <div class="slide" data-bg="linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Images/IMG-20260316-WA0040.jpg')" role="img" aria-label="Luxury Fragrance Collection Slide 3"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Berea, Durban • South Africa • Est. 2018</p>
+            <h1 class="hero-title">
+                Exquisite Scents<br>
+                <span>Shipped Worldwide</span>
+            </h1>
+            <p class="hero-description">
+                From Berea, Durban to every corner of the globe. Experience the luxury of Isphilo Fragance, crafted with passion in KZN and delivered to your doorstep, no matter where you are.
+            </p>
+            <div class="btn-group">
+                <a href="shop.html" class="btn">Shop Collection <i class="fas fa-shopping-bag" style="margin-left: 10px;"></i></a>
+                <a href="#worldwide" class="btn btn-outline" style="border: 1px solid var(--white); color: var(--white);">Shipping Info</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="section blurred-bg-section light-overlay" data-bg="url('Images/IMG-20260316-WA0051.jpg')" role="img" aria-label="Featured Collection Background">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Curated Selection</p>
+                <h2 class="section-title">Featured Fragrances</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="product-grid featured">
+                <!-- Products will be dynamically injected by main.js from ISPHILO_DB -->
+            </div>
+            
+            <div class="text-center mt-5 pt-4 reveal">
+                <a href="shop.html" class="btn btn-light">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section why-us blurred-bg-section dark-overlay" data-bg="url('Images/IMG-20260316-WA0031.jpg')" role="img" aria-label="Why Choose Us Background">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle" style="color: var(--primary-red);">The Isphilo Difference</p>
+                <h2 class="section-title" style="color: var(--pure-white);">Why Choose Our Fragrances?</h2>
+                <div class="section-divider" style="background: var(--primary-red);"></div>
+            </div>
+            
+            <div class="why-grid">
+                <div class="why-item reveal">
+                    <h3>Artisanal Quality</h3>
+                    <p>Every bottle is a masterpiece of fragrance engineering, blended with the highest concentration of premium oils for exceptional longevity.</p>
+                </div>
+                <div class="why-item reveal">
+                    <h3>Ethically Sourced</h3>
+                    <p>We source our ingredients responsibly, supporting both local KZN suppliers and sustainable global growers.</p>
+                </div>
+                <div class="why-item reveal">
+                    <h3>Global Standards</h3>
+                    <p>While we are local to Berea, our quality control meets international luxury standards, rivaling the world's most famous perfume houses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PREVIEW -->
+    <section class="section about-preview">
+        <div class="about-content reveal">
+            <p class="section-subtitle">Our Heritage</p>
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 32px; text-transform: uppercase;">A Legacy of Elegance</h3>
+            <p>
+                Based in the vibrant heart of Durban, <strong>Isphilo Fragrances</strong> is a premier cosmetic brand specializing in a sophisticated range of fragrances for both men and women.
+            </p>
+            <p>
+                Each scent is meticulously crafted from distinctive blends of essential oils and other fine ingredients, resulting in long-lasting fragrances designed to linger for hours on end. Our signature collections are available in elegant 50ml and 30ml bottles, offering a perfect fusion of luxury and longevity.
+            </p>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2018</div>
+                    <div class="stat-label">Founded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Unique Blends</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+            <a href="about.html" class="btn mt-5">Discover Our Journey</a>
+        </div>
+        <div class="about-image reveal" style="background: url('Images/IMG-20260316-WA0031.jpg') center/cover; border: 2px solid var(--pure-black);"></div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials blurred-bg-section light-overlay" data-bg="url('Images/IMG-20260316-WA0032.jpg')" role="img" aria-label="Testimonials Background">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-subtitle">Client Voices</p>
+                <h2 class="section-title">Our Global Community</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"I was skeptical about shipping perfume from Durban to the UK, but Isphilo exceeded my expectations. The packaging was beautiful and the scent is truly world-class."</p>
+                    <h5>Sarah J. <span style="color: var(--primary-red); font-weight: 700;">- London, UK</span></h5>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"Proud to support this KZN gem! The quality of these fragrances is better than many high-end brands I've tried. Fast delivery to Johannesburg."</p>
+                    <h5>Thabo M. <span style="color: var(--primary-red); font-weight: 700;">- Johannesburg, SA</span></h5>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"Midnight Rose is my new signature scent. Shipping to New York was seamless and surprisingly fast. Highly recommend Isphilo!"</p>
+                    <h5>Elena R. <span style="color: var(--primary-red); font-weight: 700;">- New York, USA</span></h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter reveal blurred-bg-section dark-overlay" data-bg="url('Images/IMG-20260316-WA0031.jpg')" role="img" aria-label="Newsletter Subscription Background">
+        <div class="container">
+            <div class="newsletter-content">
+                <p class="section-subtitle" style="color: var(--primary-red);">Join Our World</p>
+                <h3>Subscribe to Our Newsletter</h3>
+                <p>Stay updated with our latest collections, exclusive offers, and fragrance tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit" class="btn">Subscribe Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer"></footer>
+
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

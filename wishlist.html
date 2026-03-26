@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist | ISPHILO FRAGANCE</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Components -->
+    <script src="assets/js/components.js" defer></script>
+</head>
+<body onload="runSecurityScan(); renderWishlist()">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar">
+        <i class="fas fa-truck" style="color: var(--primary-red); margin-right: 5px;"></i> FREE SHIPPING ON ORDERS OVER R1500
+    </div>
+
+    <!-- HEADER (Minimal Smart Capsule) -->
+    <header id="header"></header>
+
+    <!-- WISHLIST CONTENT -->
+    <section class="section" style="padding-top: 150px; min-height: 80vh;">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Your Saved Items</p>
+                <h2 class="section-title">My Wishlist</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div id="wishlist-container" class="product-grid" style="margin-top: 60px;">
+                <!-- Wishlist items will be rendered here -->
+                <div class="text-center" id="empty-wishlist" style="display: none; grid-column: 1 / -1; padding: 100px 0;">
+                    <i class="far fa-heart" style="font-size: 80px; color: var(--gray-light); margin-bottom: 30px;"></i>
+                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 24px; color: var(--charcoal); margin-bottom: 20px;">Your wishlist is empty</h3>
+                    <p style="margin-bottom: 40px; opacity: 0.6;">Start saving your favorite fragrances today.</p>
+                    <a href="shop.html" class="btn">Explore Collection</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer"></footer>
+
+    <!-- JS -->
+    <script src="assets/js/db.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        async function renderWishlist() {
+            const user = ISPHILO_DB.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html?reason=wishlist';
+                return;
+            }
+
+            const container = document.getElementById('wishlist-container');
+            const emptyState = document.getElementById('empty-wishlist');
+            
+            // For now, use local storage wishlist, but in a real app, we'd fetch from backend
+            const wishlist = JSON.parse(localStorage.getItem(`wishlist_${user.id}`)) || [];
+            
+            if (wishlist.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            const allProducts = await ISPHILO_DB.getProducts();
+            const wishlistProducts = allProducts.filter(p => wishlist.includes(p.id));
+
+            container.innerHTML = wishlistProducts.map(p => `
+                <div class="product-card reveal" id="wishlist-item-${p.id}">
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.name}">
+                        <button class="remove-wishlist" onclick="removeFromWishlist(${p.id})" style="position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-red); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 5;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">${p.category}</p>
+                        <h5 class="product-name">${p.name}</h5>
+                        <p class="product-price">R ${p.price.toFixed(2)}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn btn-sm" onclick="addToCart(${p.id})" style="flex: 1;">Add to Cart</button>
+                            <a href="product-details.html?id=${p.id}" class="btn btn-sm" style="flex: 1; background: var(--pure-black); border-color: var(--pure-black);">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            reveal();
+        }
+
+        function removeFromWishlist(productId) {
+            const user = ISPHILO_DB.getCurrentUser();
+            let wishlist = JSON.parse(localStorage.getItem(`wishlist_${user.id}`)) || [];
+            wishlist = wishlist.filter(id => id !== productId);
+            localStorage.setItem(`wishlist_${user.id}`, JSON.stringify(wishlist));
+            
+            const item = document.getElementById(`wishlist-item-${productId}`);
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                renderWishlist();
+            }, 300);
+            
+            showNotification('Item removed from wishlist', 'info');
+        }
+    </script>
+</body>
+</html>
