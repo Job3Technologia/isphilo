@@ -471,32 +471,64 @@ const ISPHILO_DB = {
         return this.getData('cart');
     },
 
-    addToCart(productId, quantity = 1) {
-        const products = this.getProducts();
-        const product = products.find(p => p.id === productId);
-        if (!product || product.is_sold_out) return false;
+    getCartCount() {
+        const cart = this.getCart();
+        return cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
+    },
+
+    getCartTotal() {
+        const cart = this.getCart();
+        return cart.reduce((sum, item) => sum + (parseFloat(item.price) * (parseInt(item.quantity) || 0)), 0);
+    },
+
+    async addToCart(productId, quantity = 1) {
+        const products = await this.getProducts();
+        const product = products.find(p => p.id == productId);
+        
+        if (!product) {
+            console.error("Product not found:", productId);
+            return { success: false, message: "Product not found." };
+        }
+        
+        if (product.is_sold_out) {
+            return { success: false, message: "This product is currently out of stock." };
+        }
 
         let cart = this.getCart();
-        const existingItem = cart.find(item => item.id === productId);
+        const existingItem = cart.find(item => item.id == productId);
+        const qtyToAdd = Math.max(1, parseInt(quantity) || 1);
         
         if (existingItem) {
-            existingItem.quantity += parseInt(quantity);
+            existingItem.quantity += qtyToAdd;
         } else {
             cart.push({
                 id: product.id,
                 name: product.name,
-                price: product.sale_price || product.price,
+                price: parseFloat(product.sale_price || product.price),
                 image: product.image,
-                quantity: parseInt(quantity)
+                quantity: qtyToAdd,
+                added_at: new Date().toISOString()
             });
         }
+        
         this.setData('cart', cart);
-        return true;
+        return { success: true, message: "Product added to cart!" };
     },
 
     removeFromCart(productId) {
-        let cart = this.getCart().filter(item => item.id !== productId);
+        let cart = this.getCart().filter(item => item.id != productId);
         this.setData('cart', cart);
+    },
+
+    updateCartQuantity(productId, quantity) {
+        let cart = this.getCart();
+        const item = cart.find(item => item.id == productId);
+        if (item) {
+            item.quantity = Math.max(1, parseInt(quantity));
+            this.setData('cart', cart);
+            return true;
+        }
+        return false;
     },
 
     clearCart() {

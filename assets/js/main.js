@@ -30,13 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 3. CART UPDATE & RENDER
     function updateCartUI() {
-        const cart = ISPHILO_DB.getCart();
+        const count = ISPHILO_DB.getCartCount();
         const cartCounts = document.querySelectorAll('.cart-count');
-        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
         
         cartCounts.forEach(el => {
             el.textContent = count;
-            // Always show the badge if count > 0, otherwise hide it or show 0
             el.style.display = count > 0 ? 'flex' : 'none';
         });
     }
@@ -98,12 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initAuth();
     ISPHILO_DB.subscribe('authChange', updateAuthUI);
 
-    window.addToCart = function(productId, quantity = 1) {
-        const success = ISPHILO_DB.addToCart(productId, quantity);
-        if (success) {
-            showNotification('Product added to cart!', 'success');
+    window.addToCart = async function(productId, quantity = 1) {
+        const result = await ISPHILO_DB.addToCart(productId, quantity);
+        if (result.success) {
+            showNotification(result.message, 'success');
         } else {
-            showNotification('Could not add to cart. Product might be sold out.', 'error');
+            showNotification(result.message, 'error');
         }
     };
 

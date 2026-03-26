@@ -138,10 +138,8 @@
             wrapper.style.display = 'grid';
             emptyMsg.style.display = 'none';
 
-            let subtotal = 0;
             itemsContainer.innerHTML = cart.map(item => {
                 const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
                 return `
                     <tr>
                         <td data-label="Product">
@@ -165,25 +163,19 @@
                 `;
             }).join('');
 
+            const subtotal = ISPHILO_DB.getCartTotal();
             document.getElementById('cart-subtotal').textContent = `R ${subtotal.toFixed(2)}`;
             document.getElementById('cart-total').textContent = `R ${subtotal.toFixed(2)}`;
         }
 
         function updateQty(id, qty) {
-            let cart = ISPHILO_DB.getCart();
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.quantity = parseInt(qty);
-                ISPHILO_DB.setData('cart', cart);
-                renderCart();
-            }
+            ISPHILO_DB.updateCartQuantity(id, qty);
+            renderCart();
         }
 
         function removeItem(id) {
             ISPHILO_DB.removeFromCart(id);
             renderCart();
-            // Trigger global count update
-            if (window.updateCartUI) window.updateCartUI();
         }
     </script>
 </body>
